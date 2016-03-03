@@ -7,7 +7,7 @@ import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
 
 class TensorAdditionKernelSimple extends Kernel {
 
-	private static final DFEType type = dfeFloat(11, 53);
+	private static final DFEType type = dfeFloat(8, 24);
 
 	protected TensorAdditionKernelSimple(KernelParameters parameters) {
 		super(parameters);
@@ -17,7 +17,7 @@ class TensorAdditionKernelSimple extends Kernel {
 
 
 		// TODO replace with your computation
-		DFEVar sum = x + y;
+		DFEVar sum = x + y ;
 
 		io.output("s", sum, type);
 	}

@@ -34,7 +34,7 @@ public class TensorAdditionManager {
 
 	private static EngineInterface interfaceDefault() {
 		EngineInterface engine_interface = new EngineInterface();
-		CPUTypes   type = CPUTypes.DOUBLE;
+		CPUTypes   type = CPUTypes.FLOAT;
 		int        size = type.sizeInBytes();
 
 
