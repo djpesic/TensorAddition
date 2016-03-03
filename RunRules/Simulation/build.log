@@ -1,0 +1,55 @@
+Thu 21:04: ########################################## 
+Thu 21:04: Compiling.
+Thu 21:04: ########################################## 
+
+Thu 21:04: MaxCompiler version: 2015.2.
+Thu 21:04: Build Simulation run rule for TensorAddition start time: Thu Feb 25 21:04:16 CET 2016.
+Thu 21:04: Project location: /home/dpesic/workspace/TensorAddition.
+Thu 21:04: Detailed build log: /home/dpesic/workspace/TensorAddition/RunRules/Simulation/build.log.
+
+Thu 21:04: Compiling Engine Code.
+Thu 21:04: Engine building skipped (no changes on .max files).
+Thu 21:04: Compiling CPU Code.
+Thu 21:04: Run CPU project make files updating
+Thu 21:04: Executing command:
+Thu 21:04: java -jar /home/dpesic/maxeler/lib/MaxIDE/projectAdmin.jar -u /home/dpesic/workspace/TensorAddition Simulation 
+Thu 21:04: Command output:
+
+Thu 21:04: MaxCompiler Project Admin Tool Version 2015.2.00001
+Thu 21:04:  Copyright Maxeler Technologies 2010 - 2015. All rights reserved.
+Thu 21:04: Handler version 2
+Thu 21:04: Updating RunRule dependent Makefiles for RunRule 'Simulation'
+Thu 21:04: 	Updating: Simulation
+Thu 21:04: Found makefiles: 1
+Thu 21:04: 	Updated: Simulation
+Thu 21:04: Run CPU make.
+Thu 21:04: make RUNRULE=Simulation 
+Thu 21:04: Command output:
+Thu 21:04: make -f Makefile.rules build
+Thu 21:04: make[1]: Entering directory `/home/dpesic/workspace/TensorAddition/CPUCode'
+Thu 21:04: set -e; rm -f ../RunRules/Simulation/objects/cpp/TensorAddLTensor.d ;                                                               \
+Thu 21:04:   g++ -M -Wall -Wextra -g -O3 -I../RunRules/Simulation/include  -I '/home/dpesic/maxeler/include/slic'  -Wno-error TensorAddLTensor.cpp > ../RunRules/Simulation/objects/cpp/TensorAddLTensor.d.$$ ;                                \
+Thu 21:04:       sed 's,\(TensorAddLTensor\)\.o[ :]*,../RunRules/Simulation/objects/cpp/\1.o ../RunRules/Simulation/objects/cpp/TensorAddLTensor.d : ,g' < ../RunRules/Simulation/objects/cpp/TensorAddLTensor.d.$$ > ../RunRules/Simulation/objects/cpp/TensorAddLTensor.d; \
+Thu 21:04:       rm -f ../RunRules/Simulation/objects/cpp/TensorAddLTensor.d.$$
+Thu 21:04: set -e; rm -f ../RunRules/Simulation/objects/cpp/TensorAddDFE.d ;                                                               \
+Thu 21:04:   g++ -M -Wall -Wextra -g -O3 -I../RunRules/Simulation/include  -I '/home/dpesic/maxeler/include/slic'  -Wno-error TensorAddDFE.cpp > ../RunRules/Simulation/objects/cpp/TensorAddDFE.d.$$ ;                                \
+Thu 21:04:       sed 's,\(TensorAddDFE\)\.o[ :]*,../RunRules/Simulation/objects/cpp/\1.o ../RunRules/Simulation/objects/cpp/TensorAddDFE.d : ,g' < ../RunRules/Simulation/objects/cpp/TensorAddDFE.d.$$ > ../RunRules/Simulation/objects/cpp/TensorAddDFE.d; \
+Thu 21:04:       rm -f ../RunRules/Simulation/objects/cpp/TensorAddDFE.d.$$
+Thu 21:04: make[1]: Leaving directory `/home/dpesic/workspace/TensorAddition/CPUCode'
+Thu 21:04: make[1]: Entering directory `/home/dpesic/workspace/TensorAddition/CPUCode'
+Thu 21:04: g++ -Wall -Wextra -g -O3 -I../RunRules/Simulation/include  -I '/home/dpesic/maxeler/include/slic'  -c TensorAddDFE.cpp -o ../RunRules/Simulation/objects/cpp/TensorAddDFE.o
+Thu 21:04: g++ -Wall -Wextra -g -O3 -I../RunRules/Simulation/include  -I '/home/dpesic/maxeler/include/slic'  -c TensorAddLTensor.cpp -o ../RunRules/Simulation/objects/cpp/TensorAddLTensor.o
+Thu 21:04: g++ -Wall -Wextra -g -O3 -I../RunRules/Simulation/include  -I '/home/dpesic/maxeler/include/slic'  -o ../RunRules/Simulation/binaries/TensorAddition ../RunRules/Simulation/objects/maxfiles/slic_TensorAddition.o ../RunRules/Simulation/objects/cpp/Main.o ../RunRules/Simulation/objects/cpp/TensorAddDFE.o ../RunRules/Simulation/objects/cpp/TensorAddLTensor.o -g -O3  -L '/home/dpesic/maxeler/lib' -lslic -L '/home/dpesic/maxeler/lib/maxeleros-sim/lib' -lmaxeleros -lpthread -lm -lrt 
+Thu 21:04: make[1]: Leaving directory `/home/dpesic/workspace/TensorAddition/CPUCode'
+Thu 21:04: Build completed: Thu Feb 25 21:04:18 CET 2016
+
+
+Thu 21:04: ########################################## 
+Thu 21:04: Running
+Thu 21:04: ########################################## 
+Thu 21:04: Executing command:
+Thu 21:04: '/home/dpesic/workspace/TensorAddition/RunRules/Simulation/binaries/TensorAddition' 
+Thu 21:04: Command output:
+Thu 21:04: Elapsed time ltensor: 0
+Thu 21:04: Elapsed time dfe: 0.01
+Thu 21:04: Process terminated with exit code 0.

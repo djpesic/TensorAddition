@@ -1,0 +1,16 @@
+Mon Feb 22 21:05:27 CET 2016
+TensorAdditionKernel
+original
+TensorAdditionKernel_original.dot
+pre_dsp_extraction
+TensorAdditionKernel_pre_dsp_extraction.dot
+optimised
+TensorAdditionKernel_optimised.dot
+tapnfold_1
+TensorAdditionKernel_tapnfold_1.dot
+validated_fifos
+TensorAdditionKernel_validated_fifos.dot
+tapnfold_2
+TensorAdditionKernel_tapnfold_2.dot
+final
+TensorAdditionKernel_final.dot

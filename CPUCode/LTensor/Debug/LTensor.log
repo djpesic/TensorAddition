@@ -1,0 +1,22 @@
+﻿  main.cpp
+d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\marray\marray_rank3.h(427): error C2440: '<function-style-cast>': cannot convert from 'initializer list' to 'Expr_Obj'
+  d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\marray\marray_rank3.h(427): note: No constructor could take the source type, or constructor overload resolution was ambiguous
+  d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\main.cpp(58): note: see reference to function template instantiation 'Expr3<Encapsulate_to_Expr3<Marray<double,3,TinyArray_base<T,3>>,T,3,123,Index<105,1>,Index<106,1>,Index<107,1>>,T,105,106,107> Marray<T,3,base>::operator ()<105,106,107,1,1,1>(const Index<105,1> &,const Index<106,1> &,const Index<107,1> &)' being compiled
+          with
+          [
+              T=double,
+              base=Array_base<double,3>
+          ]
+  d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\main.cpp(58): note: see reference to function template instantiation 'Expr3<Encapsulate_to_Expr3<Marray<double,3,TinyArray_base<T,3>>,T,3,123,Index<105,1>,Index<106,1>,Index<107,1>>,T,105,106,107> Marray<T,3,base>::operator ()<105,106,107,1,1,1>(const Index<105,1> &,const Index<106,1> &,const Index<107,1> &)' being compiled
+          with
+          [
+              T=double,
+              base=Array_base<double,3>
+          ]
+  d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\main.cpp(99): note: see reference to function template instantiation 'void addThirdRankTensors<Array_base<double,3>>(int,int,int)' being compiled
+d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\marray\marray_rank3.h(427): error C2512: 'Expr3<Encapsulate_to_Expr3<Marray<double,3,TinyArray_base<T,3>>,T,3,123,Index<105,1>,Index<106,1>,Index<107,1>>,T,105,106,107>': no appropriate default constructor available
+          with
+          [
+              T=double
+          ]
+  d:\djole dokumenti\ostalo\fakultet\doktorske\maxeler\ltensor21112012\marray\marray_rank3.h(427): note: No constructor could take the source type, or constructor overload resolution was ambiguous

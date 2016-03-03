@@ -1,0 +1,9 @@
+digraph TensorAdditionKernel_final{
+	NodeInput2 [shape=invhouse, label="x\nID: 2"];
+	NodeInput5 [shape=invhouse, label="y\nID: 5"];
+	NodeAdd6 [label="+\nID: 6"];
+	NodeOutput11 [shape=house, label="s\nID: 11"];
+	NodeInput2 -> NodeAdd6[color="/dark28/1" photon_data="EDGE,SrcNode:2,SrcNodePort:data"];
+	NodeInput5 -> NodeAdd6[color="/dark28/2" photon_data="EDGE,SrcNode:5,SrcNodePort:data"];
+	NodeAdd6 -> NodeOutput11[color="/dark28/3" photon_data="EDGE,SrcNode:6,SrcNodePort:result"];
+}
