@@ -1,0 +1,6 @@
+EngineCode/bin/**
+RunRules/Simulation/binaries/**
+RunRules/Simulation/build.log
+RunRules/Simulation/maxfiles/**
+RunRules/Simulation/objects/**
+RunRules/Simulation/include/**
