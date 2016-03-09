@@ -12,7 +12,6 @@ int main(){
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
-	return 0;
 	start=clock();
 	tensorAddDFE();
 	end=clock();

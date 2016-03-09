@@ -2,24 +2,34 @@ package tensoraddition;
 
 import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
 import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.stdlib.core.Stream.OffsetExpr;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEType;
 import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
 
 class TensorAdditionKernelSimple extends Kernel {
 
-	private static final DFEType type = dfeFloat(8, 24);
+	private static final DFEType floatType = dfeFloat(8, 24);
+	private static final DFEType longType = dfeInt(64);
 
 	protected TensorAdditionKernelSimple(KernelParameters parameters) {
 		super(parameters);
 
-		DFEVar x = io.input("x", type);
-		DFEVar y = io.input("y", type);
+		OffsetExpr loopLength = stream.makeOffsetAutoLoop("loopLength");
+
+		DFEVar inTensors = io.input("inTensors", floatType);  // input tensors
+		DFEVar numTensors = io.scalarInput("numTensors", longType);  // number of tensors
+		DFEVar tensorLen = io.scalarInput("tensorLen", longType);  // length of linearized tensor
+		DFEVar numTensorsCnt = control.count.simpleCounter(32, numTensors);
 
 
-		// TODO replace with your computation
-		DFEVar sum = x + y ;
+		DFEVar currSum = floatType.newInstance(this);
+		DFEVar sum = numTensorsCnt.eq(0) ? 0 : currSum;
+		DFEVar newSum = sum+inTensors;
+		DFEVar newSumOffset = stream.offset(newSum, -loopLength);
+		currSum <== newSumOffset;
 
-		io.output("s", sum, type);
+		io.output("sum", currSum, floatType,numTensorsCnt.eq(numTensors-1));
+
 	}
 
 }

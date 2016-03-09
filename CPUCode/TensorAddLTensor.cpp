@@ -15,48 +15,48 @@ float generateRandomNumber(){
 
 }
 
-static void addFirstRankTensors(int dim, int num) {
+static void addFirstRankTensors(long dim, long num) {
 
 	Marray<float, 1> a(dim), sum(dim);
 
 	Index<'i'> i;
-	for (int ind = 0; ind < dim; ind++) {
+	for (long ind = 0; ind < dim; ind++) {
 		input >> sum(ind);
 	}
 	num--;
-	for(int it=0;it<num;it++){
-		for (int ind = 0; ind < dim; ind++) {
+	for(long it=0;it<num;it++){
+		for (long ind = 0; ind < dim; ind++) {
 			input >> a(ind);
 		}
 		sum(i)=sum(i)+a(i);
 	}
-	for (int ind = 0; ind < dim; ind++) {
+	for (long ind = 0; ind < dim; ind++) {
 		output << sum(ind) << " ";
 	}
 }
 
 
-static void addSecondRankTensors(int dim1, int dim2,int num) {
+static void addSecondRankTensors(long dim1, long dim2,long num) {
 	Marray<float, 2> a(dim1, dim2), sum(dim1, dim2);
 	Index<'i'> i;
 	Index<'j'> j;
-	for (int ind1 = 0; ind1 < dim1; ind1++) {
-		for (int ind2 = 0; ind2 < dim2; ind2++) {
+	for (long ind1 = 0; ind1 < dim1; ind1++) {
+		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			input >> sum(ind1, ind2);
 		}
 	}
 	num--;
-	for(int ind=0;ind<num;ind++){
-		for (int ind1 = 0; ind1 < dim1; ind1++) {
-			for (int ind2 = 0; ind2 < dim2; ind2++) {
+	for(long ind=0;ind<num;ind++){
+		for (long ind1 = 0; ind1 < dim1; ind1++) {
+			for (long ind2 = 0; ind2 < dim2; ind2++) {
 				input >> a(ind1, ind2);
 			}
 		}
 		sum(i,j) = sum(i,j) + a(i, j);
 	}
 
-	for (int ind1 = 0; ind1 < dim1; ind1++) {
-		for (int ind2 = 0; ind2 < dim2; ind2++) {
+	for (long ind1 = 0; ind1 < dim1; ind1++) {
+		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			output << sum(ind1, ind2) << " ";
 		}
 	}
@@ -64,33 +64,33 @@ static void addSecondRankTensors(int dim1, int dim2,int num) {
 
 
 
-static void addThirdRankTensors(int dim1, int dim2, int dim3, int num) {
+static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	Marray<float, 3> a(dim1, dim2, dim3), sum(dim1, dim2, dim3);
 
 	Index<'i'> i;
 	Index<'j'> j;
 	Index<'k'> k;
-	for (int ind1 = 0; ind1 < dim1; ind1++) {
-		for (int ind2 = 0; ind2 < dim2; ind2++) {
-			for (int ind3 = 0; ind3 < dim3; ind3++) {
+	for (long ind1 = 0; ind1 < dim1; ind1++) {
+		for (long ind2 = 0; ind2 < dim2; ind2++) {
+			for (long ind3 = 0; ind3 < dim3; ind3++) {
 				input >> sum(ind1, ind2, ind3);
 			}
 		}
 	}
 	num--;
-	for(int ind=0;ind<num;ind++){
-		for (int ind1 = 0; ind1 < dim1; ind1++) {
-			for (int ind2 = 0; ind2 < dim2; ind2++) {
-				for (int ind3 = 0; ind3 < dim3; ind3++) {
+	for(long ind=0;ind<num;ind++){
+		for (long ind1 = 0; ind1 < dim1; ind1++) {
+			for (long ind2 = 0; ind2 < dim2; ind2++) {
+				for (long ind3 = 0; ind3 < dim3; ind3++) {
 					input >> a(ind1, ind2, ind3);
 				}
 			}
 		}
 		sum(i, j, k) = sum(i, j, k) + a(i, j, k);
 	}
-	for (int ind1 = 0; ind1 < dim1; ind1++) {
-		for (int ind2 = 0; ind2 < dim2; ind2++) {
-			for (int ind3 = 0; ind3 < dim3; ind3++) {
+	for (long ind1 = 0; ind1 < dim1; ind1++) {
+		for (long ind2 = 0; ind2 < dim2; ind2++) {
+			for (long ind3 = 0; ind3 < dim3; ind3++) {
 				output << sum(ind1, ind2, ind3)  << " ";
 			}
 		}
@@ -99,28 +99,28 @@ static void addThirdRankTensors(int dim1, int dim2, int dim3, int num) {
 
 
 void tensorAddLTensor() {
-	int num, rank, dim1, dim2, dim3;
+	long num, rank, dim1, dim2, dim3;
+//
+//	input.open("test/test110e4x10e6_in1.txt", fstream::out);
+//	input << 10000;
+//	input << 1 << endl;
+//	input << 1000000 << endl;
+//	for(long j=0;j<10000;j++){
+//		for(long i=0;i<1000000;i++){
+//			input << generateRandomNumber() << " ";
+//		}
+//		input << "\n";
+//	}
+//
+//	input.close();
+//	return;
 
-	input.open("test/test110e4x10e6_in1.txt", fstream::out);
-	input << 10000;
-	input << 1 << endl;
-	input << 1000000 << endl;
-	for(long j=0;j<10000;j++){
-		for(long i=0;i<1000000;i++){
-			input << generateRandomNumber() << " ";
-		}
-		input << "\n";
-	}
-
-	input.close();
-	return;
-
-	input.open("test/test3_in.txt", fstream::in);
+	input.open("test/test1_in.txt", fstream::in);
 	if(!input){
 		cout << "Input file does not exists!\n";
 		return;
 	}
-	output.open("test/test3_out.txt", fstream::out);
+	output.open("test/test1_out.txt", fstream::out);
 	input >> num;
 	input >> rank;
 
@@ -128,7 +128,7 @@ void tensorAddLTensor() {
 	case 0: {
 		//tensor rank 0: scalar, trivial case
 		float sum=0, scalar;
-		for(int i=0;i<num;i++){
+		for(long i=0;i<num;i++){
 			input >> scalar;
 			sum+=scalar;
 		}
