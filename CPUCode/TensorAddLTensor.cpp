@@ -99,21 +99,22 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 
 
 void tensorAddLTensor() {
-	long num, rank, dim1, dim2, dim3;
-//
-//	input.open("test/test110e4x10e6_in1.txt", fstream::out);
-//	input << 10000;
-//	input << 1 << endl;
-//	input << 1000000 << endl;
-//	for(long j=0;j<10000;j++){
-//		for(long i=0;i<1000000;i++){
-//			input << generateRandomNumber() << " ";
-//		}
-//		input << "\n";
-//	}
-//
-//	input.close();
-//	return;
+	long  rank, dim1, dim2, dim3;
+	int num;
+	//
+	//	input.open("test/test110e4x10e6_in1.txt", fstream::out);
+	//	input << 10000;
+	//	input << 1 << endl;
+	//	input << 1000000 << endl;
+	//	for(long j=0;j<10000;j++){
+	//		for(long i=0;i<1000000;i++){
+	//			input << generateRandomNumber() << " ";
+	//		}
+	//		input << "\n";
+	//	}
+	//
+	//	input.close();
+	//	return;
 
 	input.open("test/test1_in.txt", fstream::in);
 	if(!input){

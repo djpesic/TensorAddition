@@ -4,3 +4,5 @@ RunRules/Simulation/build.log
 RunRules/Simulation/maxfiles/**
 RunRules/Simulation/objects/**
 RunRules/Simulation/include/**
+RunRules/Simulation/.maxcompiler-activity.be
+RunRules/Simulation/debug/**

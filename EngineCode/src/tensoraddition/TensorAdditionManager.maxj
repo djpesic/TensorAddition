@@ -18,14 +18,15 @@ public class TensorAdditionManager {
 	public static void main(String[] args) {
 		EngineParameters params = new EngineParameters(args);
 		Manager manager = new Manager(params);
-		Kernel kernel   = new TensorAdditionKernelSimple(manager.makeKernelParameters(s_kernelName));
+		Kernel kernel   = new TensorAdditionKernel(manager.makeKernelParameters(s_kernelName));
 		manager.setKernel(kernel);
 		manager.setIO(
-			link("x",   IODestination.CPU),
-			link("y",   IODestination.CPU),
-			link("s", IODestination.CPU));
+				link("inTensors",   IODestination.CPU),
+				link("sum",   IODestination.CPU)
+		);
 
 		manager.createSLiCinterface(interfaceDefault());
+
 
 		configBuild(manager, params);
 
@@ -37,13 +38,13 @@ public class TensorAdditionManager {
 		CPUTypes   type = CPUTypes.FLOAT;
 		int        size = type.sizeInBytes();
 
-
 		InterfaceParam  N    = engine_interface.addParam("N", CPUTypes.INT);
+		InterfaceParam sumLen = engine_interface.addParam("sumLength",CPUTypes.INT);
 
 		engine_interface.setTicks(s_kernelName, N);
-		engine_interface.setStream("x",   type, N * size);
-		engine_interface.setStream("y",   type, N * size);
-		engine_interface.setStream("s", type, N * size);
+		engine_interface.setStream("inTensors",   type, N * size);
+		engine_interface.setStream("sum",   type, sumLen*size);
+
 		return engine_interface;
 	}
 
