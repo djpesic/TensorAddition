@@ -9,12 +9,12 @@
 
 using namespace std;
 fstream input, output;
-const int loopSize =13;
+const int loopSize =TensorAddition_tileSize;
 void tensorAddDFE() {
 	long rank, dim1, dim2, dim3, inTensorsLen =0, inTensorLen = 0;
 	float* inTensors, *sum;
 	int num;
-	input.open("test/test1_in.txt", fstream::in);
+	input.open("test/test3_in.txt", fstream::in);
 	if(!input){
 		cout << "Input file does not exists!\n";
 		return;
@@ -48,32 +48,45 @@ void tensorAddDFE() {
 		return ;
 	}
 	//prepare data for DFE
-	inTensors = new float[inTensorsLen];
-	long offset = 0,cnt=0;
+
+	int numZeroes = loopSize- inTensorLen % loopSize;
+	inTensors = new float[inTensorsLen+numZeroes*num];
+	int skipSize = loopSize*(num-1);
+	int numLoaded=0;// counts to loopSize
+	int numLoaded1=0;//counts to tensor length
+	int offset=0;
+	long cnt=0;
 	float data;
-	for(long i=0; i < inTensorsLen;i++){
+	for(long i=0;i<inTensorsLen;i++){
 		input >> data;
-		inTensors[cnt+offset] = data;
+		inTensors[cnt]=data;
 		cnt++;
-		if(cnt==loopSize){
-			cnt+=num*loopSize;
+		numLoaded++;
+		numLoaded1++;
+		if(numLoaded==loopSize){
+			cnt+=skipSize;
+			numLoaded=0;
 		}
-		if(cnt==inTensorLen){
-			cnt=0;
+		if(numLoaded1==inTensorLen){
+			for(int j=0;j<numZeroes;j++){
+				inTensors[cnt]=0;
+				cnt++;
+			}
 			offset+=loopSize;
+			cnt=offset;
+			numLoaded1=numLoaded=0;
+
 		}
 	}
 
-	for(int i=0;i<inTensorsLen;i++){
-			cout << inTensors[i] << " ";
-		}
-
-	return;
 	//call DFE
+	inTensorLen+=numZeroes;
+	inTensorsLen+=numZeroes*num;
 	sum = new float[inTensorLen];
-	TensorAddition(inTensorsLen,num,inTensorLen,inTensors,sum);
-	for(int i=0;i<inTensorsLen;i++){
-		output << sum << " ";
+
+	TensorAddition(inTensorsLen, inTensorLen, num, inTensors, sum);
+	for(int i=0;i<inTensorLen;i++){
+		output << sum[i] << " ";
 	}
 	delete[] inTensors;
 	delete[] sum;

@@ -14,11 +14,12 @@ import com.maxeler.maxcompiler.v2.managers.standard.Manager;
 public class TensorAdditionManager {
 
 	private static final String s_kernelName = "TensorAdditionKernel";
-
+	private static final int tileSize=16;
 	public static void main(String[] args) {
 		EngineParameters params = new EngineParameters(args);
 		Manager manager = new Manager(params);
-		Kernel kernel   = new TensorAdditionKernel(manager.makeKernelParameters(s_kernelName));
+		Kernel kernel   = new TensorAdditionKernel(manager.makeKernelParameters(s_kernelName),tileSize);
+		manager.addMaxFileConstant("tileSize", tileSize);
 		manager.setKernel(kernel);
 		manager.setIO(
 				link("inTensors",   IODestination.CPU),
@@ -40,6 +41,7 @@ public class TensorAdditionManager {
 
 		InterfaceParam  N    = engine_interface.addParam("N", CPUTypes.INT);
 		InterfaceParam sumLen = engine_interface.addParam("sumLength",CPUTypes.INT);
+
 
 		engine_interface.setTicks(s_kernelName, N);
 		engine_interface.setStream("inTensors",   type, N * size);
