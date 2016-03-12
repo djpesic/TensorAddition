@@ -98,7 +98,7 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 }
 
 
-void tensorAddLTensor() {
+void tensorAddLTensor(char* inputName, char* outputName) {
 	long  rank, dim1, dim2, dim3;
 	int num;
 	//
@@ -116,12 +116,12 @@ void tensorAddLTensor() {
 	//	input.close();
 	//	return;
 
-	input.open("test/test1_in.txt", fstream::in);
+	input.open(inputName, fstream::in);
 	if(!input){
 		cout << "Input file does not exists!\n";
 		return;
 	}
-	output.open("test/test1_out.txt", fstream::out);
+	output.open(outputName, fstream::out);
 	input >> num;
 	input >> rank;
 

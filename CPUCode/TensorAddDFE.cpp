@@ -10,7 +10,7 @@
 using namespace std;
 fstream input, output;
 const int loopSize =TensorAddition_tileSize;
-void tensorAddDFE() {
+void tensorAddDFE(char* inputName, char* outputName) {
 	long rank, dim1, dim2, dim3, inTensorsLen =0, inTensorLen = 0;
 	float* inTensors, *sum;
 	int num;
