@@ -14,12 +14,12 @@ void tensorAddDFE(char* inputName, char* outputName) {
 	long rank, dim1, dim2, dim3, inTensorsLen =0, inTensorLen = 0;
 	float* inTensors, *sum;
 	int num;
-	input.open("test/test3_in.txt", fstream::in);
+	input.open(inputName, fstream::in);
 	if(!input){
 		cout << "Input file does not exists!\n";
 		return;
 	}
-	output.open("test/test3_out.txt", fstream::out);
+	output.open(outputName, fstream::out);
 	input >> num >>  rank;
 
 	switch (rank) {
