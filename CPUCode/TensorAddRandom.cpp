@@ -133,7 +133,7 @@ void TensorAddRandom::tensorAddLTensor() {
 	}
 }
 
-const int loopSize =TensorAddition_tileSize;
+const long loopSize =TensorAddition_tileSize;
 
 void TensorAddRandom::tensorAddDFE() {
 	long inTensorsLen =0, inTensorLen = 0;
@@ -163,12 +163,12 @@ void TensorAddRandom::tensorAddDFE() {
 	}
 	//prepare data for DFE
 
-	int numZeroes = loopSize- inTensorLen % loopSize;
+	long numZeroes = loopSize- inTensorLen % loopSize;
 	inTensors = new float[inTensorsLen+numZeroes*numTensors];
-	int skipSize = loopSize*(numTensors-1);
-	int numLoaded=0;// counts to loopSize
-	int numLoaded1=0;//counts to tensor length
-	int offset=0;
+	long skipSize = loopSize*(numTensors-1);
+	long numLoaded=0;// counts to loopSize
+	long numLoaded1=0;//counts to tensor length
+	long offset=0;
 	long cnt=0;
 	float data;
 	for(long i=0;i<inTensorsLen;i++){
@@ -182,7 +182,7 @@ void TensorAddRandom::tensorAddDFE() {
 			numLoaded=0;
 		}
 		if(numLoaded1==inTensorLen){
-			for(int j=0;j<numZeroes;j++){
+			for(long j=0;j<numZeroes;j++){
 				inTensors[cnt]=0;
 				cnt++;
 			}
