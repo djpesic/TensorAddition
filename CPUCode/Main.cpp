@@ -2,6 +2,7 @@
 #include <time.h>
 #include <limits.h>
 #include <iostream>
+#include <time.h>
 #include "TensorAdd.h"
 
 using namespace std;
@@ -40,7 +41,7 @@ int main(int argc, char** argv){
 	inputName=(char*)"test/test1_in.txt";
 	outputName=(char*)"test/test1_out.txt";
 	srand(time(NULL));
-	//	runFile(inputName, outputName);
-	runRandomMode();
+		runFile(inputName, outputName);
+//	runRandomMode();
 	return 0;
 }

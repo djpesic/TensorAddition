@@ -2,7 +2,7 @@
 #include "TensorAdd.h"
 #include <iostream>
 #include <fstream>
-#include <ctime>
+#include <time.h>
 #include <limits.h>
 #include "MaxSLiCInterface.h"
 #include "Maxfiles.h"
@@ -20,7 +20,8 @@ static void addFirstRankTensors(long dim, long num) {
 			(*tensors[it])(ind) = TensorAdd::generateRandomNumber();
 		}
 	}
-	clock_t start = clock();
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	for(long it = 0; it<dim;it++){
 		sum(it)=0;
 	}
@@ -28,9 +29,9 @@ static void addFirstRankTensors(long dim, long num) {
 	for(long it=0;it<num;it++){
 		sum(i)=sum(i)+(*tensors[it])(i);
 	}
-	clock_t end = clock();
-	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	cout << "Elapsed time ltensor: " << diff << "ms\n";
 
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
@@ -52,7 +53,8 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 			}
 		}
 	}
-	clock_t start = clock();
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	for(long it1 = 0; it1 < dim1; it1++)
 		for(long it = 0; it<dim2;it++){
 			sum(it1, it)=0;
@@ -60,9 +62,10 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 	for(long it=0; it<num; it++){
 		sum(i,j) = sum(i,j) + (*tensors[it])(i,j);
 	}
-	clock_t end = clock();
-	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	clock_gettime(CLOCK_MONOTONIC, &end);
+
+	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	cout << "Elapsed time ltensor: " << diff << "ms\n";
 
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
@@ -86,7 +89,8 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 			}
 		}
 	}
-	clock_t start = clock();
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			for (long ind3 = 0; ind3 < dim3; ind3++) {
@@ -97,9 +101,10 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	for(long it=0;it<num;it++){
 		sum(i, j, k) = sum(i, j, k) +  (*tensors[it])(i, j, k);
 	}
-	clock_t end = clock();
-	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	clock_gettime(CLOCK_MONOTONIC, &end);
+
+	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	cout << "Elapsed time ltensor: " << diff << "ms\n";
 
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
@@ -199,11 +204,13 @@ void TensorAddRandom::tensorAddDFE() {
 	inTensorLen+=numZeroes;
 	inTensorsLen+=numZeroes*numTensors;
 	sum = new float[inTensorLen];
-	clock_t start=clock();
+	struct timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	TensorAddition(inTensorsLen, inTensorLen, numTensors, inTensors, sum);
-	clock_t end = clock();
-	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time dfe: " << elapsed_time << "\n";
+	clock_gettime(CLOCK_MONOTONIC, &end);
+
+	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	cout << "Elapsed time ltensor: " << diff << "ms\n";
 
 	delete[] inTensors;
 	delete[] sum;
