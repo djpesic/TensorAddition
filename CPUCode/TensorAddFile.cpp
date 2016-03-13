@@ -68,8 +68,8 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 
-	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
-	cout << "Elapsed time dfe: " << diff << "ms\n";
+	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	cout << "Elapsed time ltensor: " << diff << "ms\n";
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			output << sum(ind1, ind2) << " ";
@@ -111,8 +111,8 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 
-	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
-	cout << "Elapsed time dfe: " << diff << "ms\n";
+	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	cout << "Elapsed time ltensor: " << diff << "ms\n";
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			for (long ind3 = 0; ind3 < dim3; ind3++) {
@@ -249,7 +249,7 @@ void TensorAddFile::tensorAddDFE() {
 	TensorAddition(inTensorsLen, inTensorLen, numTensors, inTensors, sum);
 	clock_gettime(CLOCK_MONOTONIC, &end);
 
-	double diff = 1000000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
+	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
 	cout << "Elapsed time dfe: " << diff << "ms\n";
 	for(long i=0;i<inTensorLen;i++){
 		output << sum[i] << " ";
