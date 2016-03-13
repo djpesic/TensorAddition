@@ -18,9 +18,7 @@ static void addFirstRankTensors(long dim, long num) {
 		tensors[it]=new Marray<float, 1>(dim);
 		for (long ind = 0; ind < dim; ind++) {
 			(*tensors[it])(ind) = TensorAdd::generateRandomNumber();
-			cout << (*tensors[it])(ind) << " ";
 		}
-		cout << endl;
 	}
 	clock_t start = clock();
 	for(long it = 0; it<dim;it++){
@@ -33,9 +31,7 @@ static void addFirstRankTensors(long dim, long num) {
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
-	for (long ind = 0; ind < dim; ind++) {
-		cout << sum(ind) << " ";
-	}
+
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
 	}
@@ -53,10 +49,8 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 		for (long ind1 = 0; ind1 < dim1; ind1++) {
 			for (long ind2 = 0; ind2 < dim2; ind2++) {
 				(*tensors[it])(ind1, ind2) = TensorAdd::generateRandomNumber();
-				cout << (*tensors[it])(ind1, ind2) << " ";
 			}
 		}
-		cout << endl;
 	}
 	clock_t start = clock();
 	for(long it1 = 0; it1 < dim1; it1++)
@@ -69,11 +63,7 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
-	for (long ind1 = 0; ind1 < dim1; ind1++) {
-		for (long ind2 = 0; ind2 < dim2; ind2++) {
-			cout << sum(ind1, ind2) << " ";
-		}
-	}
+
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
 	}
@@ -92,11 +82,9 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 			for (long ind2 = 0; ind2 < dim2; ind2++) {
 				for (long ind3 = 0; ind3 < dim3; ind3++) {
 					(*tensors[it])(ind1, ind2, ind3) = TensorAdd::generateRandomNumber();
-					cout << (*tensors[it])(ind1, ind2, ind3) << " ";
 				}
 			}
 		}
-		cout << endl;
 	}
 	clock_t start = clock();
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
@@ -112,13 +100,7 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
-	for (long ind1 = 0; ind1 < dim1; ind1++) {
-		for (long ind2 = 0; ind2 < dim2; ind2++) {
-			for (long ind3 = 0; ind3 < dim3; ind3++) {
-				cout << sum(ind1, ind2, ind3)  << " ";
-			}
-		}
-	}
+
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
 	}
@@ -135,7 +117,6 @@ void TensorAddRandom::tensorAddLTensor() {
 			scalar = generateRandomNumber();
 			sum+=scalar;
 		}
-		cout << sum;
 		break;
 	}
 	case 1:
@@ -223,9 +204,7 @@ void TensorAddRandom::tensorAddDFE() {
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
 	cout << "Elapsed time dfe: " << elapsed_time << "\n";
-	for(int i=0;i<inTensorLen;i++){
-		cout << sum[i] << " ";
-	}
+
 	delete[] inTensors;
 	delete[] sum;
 }
