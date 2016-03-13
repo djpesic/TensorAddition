@@ -9,10 +9,10 @@ using namespace std;
 void runRandomMode(){
 	TensorAddRandom tAdd;
 	//------test------
-	long numTensors[]={10, 100, 1000, 10000, 100000, 1000000};
-	long numTensorsSize=6;
-	long dimsSize=6;
-	long dims[] ={10, 100, 1000, 10000, 100000, 1000000};
+	long numTensors[]={10, 100, 1000, 10000, 100000};
+	long numTensorsSize=5;
+	long dimsSize=4;
+	long dims[] ={10, 100, 1000, 10000};
 	tAdd.rank=1;
 	for(long i=0;i<numTensorsSize;i++){
 		for(long j=0;j<dimsSize;j++){
