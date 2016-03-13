@@ -17,77 +17,101 @@ float generateRandomNumber(){
 
 static void addFirstRankTensors(long dim, long num) {
 
-	Marray<float, 1> a(dim), sum(dim);
-
+	Marray<float, 1> sum(dim);
+	Marray<float, 1> **tensors = new Marray<float, 1>*[num];
 	Index<'i'> i;
-	for (long ind = 0; ind < dim; ind++) {
-		input >> sum(ind);
-	}
-	num--;
-	for(long it=0;it<num;it++){
+	for(long it = 0; it< num; it++){
+		tensors[it]=new Marray<float, 1>(dim);
 		for (long ind = 0; ind < dim; ind++) {
-			input >> a(ind);
+			input >> (*tensors[it])(ind);
 		}
-		sum(i)=sum(i)+a(i);
 	}
+	clock_t start = clock();
+	for(long it = 0; it<dim;it++){
+		sum(it)=0;
+	}
+
+	for(long it=0;it<num;it++){
+		sum(i)=sum(i)+(*tensors[it])(i);
+	}
+	clock_t end = clock();
+	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
+	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
 	for (long ind = 0; ind < dim; ind++) {
 		output << sum(ind) << " ";
 	}
+	for(long ind = 0; ind<num;ind++){
+		delete tensors[ind];
+	}
+	delete [] tensors;
 }
 
 
 static void addSecondRankTensors(long dim1, long dim2,long num) {
-	Marray<float, 2> a(dim1, dim2), sum(dim1, dim2);
+	Marray<float, 2>  sum(dim1, dim2);
+	Marray<float, 2> **tensors = new Marray<float, 2>*[num];
 	Index<'i'> i;
 	Index<'j'> j;
-	for (long ind1 = 0; ind1 < dim1; ind1++) {
-		for (long ind2 = 0; ind2 < dim2; ind2++) {
-			input >> sum(ind1, ind2);
-		}
-	}
-	num--;
-	for(long ind=0;ind<num;ind++){
+	for(long it=0; it < num; it++){
+		tensors[it]=new Marray<float, 2>(dim1, dim2);
 		for (long ind1 = 0; ind1 < dim1; ind1++) {
 			for (long ind2 = 0; ind2 < dim2; ind2++) {
-				input >> a(ind1, ind2);
+				input >> (*tensors[it])(ind1, ind2);
 			}
 		}
-		sum(i,j) = sum(i,j) + a(i, j);
 	}
-
+	clock_t start = clock();
+	for(long it1 = 0; it1 < dim1; it1++)
+		for(long it = 0; it<dim2;it++){
+			sum(it1, it)=0;
+		}
+	for(long it=0; it<num; it++){
+		sum(i,j) = sum(i,j) + (*tensors[it])(i,j);
+	}
+	clock_t end = clock();
+	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
+	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			output << sum(ind1, ind2) << " ";
 		}
 	}
+	for(long ind = 0; ind<num;ind++){
+		delete tensors[ind];
+	}
+	delete [] tensors;
 }
 
-
-
 static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
-	Marray<float, 3> a(dim1, dim2, dim3), sum(dim1, dim2, dim3);
-
+	Marray<float, 3> sum(dim1, dim2, dim3);
+	Marray<float, 3> **tensors = new Marray<float, 3>*[num];
 	Index<'i'> i;
 	Index<'j'> j;
 	Index<'k'> k;
-	for (long ind1 = 0; ind1 < dim1; ind1++) {
-		for (long ind2 = 0; ind2 < dim2; ind2++) {
-			for (long ind3 = 0; ind3 < dim3; ind3++) {
-				input >> sum(ind1, ind2, ind3);
-			}
-		}
-	}
-	num--;
-	for(long ind=0;ind<num;ind++){
+	for(long it=0; it < num; it++){
+		tensors[it]=new Marray<float, 3>(dim1, dim2, dim3);
 		for (long ind1 = 0; ind1 < dim1; ind1++) {
 			for (long ind2 = 0; ind2 < dim2; ind2++) {
 				for (long ind3 = 0; ind3 < dim3; ind3++) {
-					input >> a(ind1, ind2, ind3);
+					input >> (*tensors[it])(ind1, ind2, ind3);
 				}
 			}
 		}
-		sum(i, j, k) = sum(i, j, k) + a(i, j, k);
 	}
+	clock_t start = clock();
+	for (long ind1 = 0; ind1 < dim1; ind1++) {
+		for (long ind2 = 0; ind2 < dim2; ind2++) {
+			for (long ind3 = 0; ind3 < dim3; ind3++) {
+				sum(ind1, ind2, ind3) = 0;
+			}
+		}
+	}
+	for(long it=0;it<num;it++){
+		sum(i, j, k) = sum(i, j, k) +  (*tensors[it])(i, j, k);
+	}
+	clock_t end = clock();
+	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
+	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			for (long ind3 = 0; ind3 < dim3; ind3++) {
@@ -95,6 +119,10 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 			}
 		}
 	}
+	for(long ind = 0; ind<num;ind++){
+		delete tensors[ind];
+	}
+	delete [] tensors;
 }
 
 
