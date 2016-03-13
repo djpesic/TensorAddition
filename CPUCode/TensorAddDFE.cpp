@@ -80,11 +80,16 @@ void tensorAddDFE(char* inputName, char* outputName) {
 	}
 
 	//call DFE
+
+
 	inTensorLen+=numZeroes;
 	inTensorsLen+=numZeroes*num;
 	sum = new float[inTensorLen];
-
+	clock_t start=clock();
 	TensorAddition(inTensorsLen, inTensorLen, num, inTensors, sum);
+	clock_t end = clock();
+	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
+	cout << "Elapsed time dfe: " << elapsed_time << "\n";
 	for(int i=0;i<inTensorLen;i++){
 		output << sum[i] << " ";
 	}

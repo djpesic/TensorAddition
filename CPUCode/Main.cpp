@@ -14,10 +14,7 @@ int main(int argc, char** argv){
 
 	tensorAddLTensor(inputName, outputName);
 
-//	start=clock();
-//	tensorAddDFE(inputName, outputName);
-//	end=clock();
-//	elapsed_time=(end-start)/(double)CLOCKS_PER_SEC;
-//	cout << "\nElapsed time dfe: " << elapsed_time << "\n";
+	tensorAddDFE(inputName, outputName);
+
 	return 0;
 }
