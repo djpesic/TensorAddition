@@ -21,7 +21,7 @@ static void addFirstRankTensors(long dim, long num) {
 		}
 	}
 	struct timespec start, end;
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	clock_gettime(CLOCK_REALTIME, &start);
 	for(long it = 0; it<dim;it++){
 		sum(it)=0;
 	}
@@ -29,7 +29,7 @@ static void addFirstRankTensors(long dim, long num) {
 	for(long it=0;it<num;it++){
 		sum(i)=sum(i)+(*tensors[it])(i);
 	}
-	clock_gettime(CLOCK_MONOTONIC, &end);
+	clock_gettime(CLOCK_REALTIME, &end);
 	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
 	cout << "Elapsed time ltensor: " << diff << "ms\n";
 
@@ -54,7 +54,7 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 		}
 	}
 	struct timespec start, end;
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	clock_gettime(CLOCK_REALTIME, &start);
 	for(long it1 = 0; it1 < dim1; it1++)
 		for(long it = 0; it<dim2;it++){
 			sum(it1, it)=0;
@@ -62,7 +62,7 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 	for(long it=0; it<num; it++){
 		sum(i,j) = sum(i,j) + (*tensors[it])(i,j);
 	}
-	clock_gettime(CLOCK_MONOTONIC, &end);
+	clock_gettime(CLOCK_REALTIME, &end);
 
 	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
 	cout << "Elapsed time ltensor: " << diff << "ms\n";
@@ -90,7 +90,7 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 		}
 	}
 	struct timespec start, end;
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	clock_gettime(CLOCK_REALTIME, &start);
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			for (long ind3 = 0; ind3 < dim3; ind3++) {
@@ -101,7 +101,7 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	for(long it=0;it<num;it++){
 		sum(i, j, k) = sum(i, j, k) +  (*tensors[it])(i, j, k);
 	}
-	clock_gettime(CLOCK_MONOTONIC, &end);
+	clock_gettime(CLOCK_REALTIME, &end);
 
 	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
 	cout << "Elapsed time ltensor: " << diff << "ms\n";
@@ -205,9 +205,9 @@ void TensorAddRandom::tensorAddDFE() {
 	inTensorsLen+=numZeroes*numTensors;
 	sum = new float[inTensorLen];
 	struct timespec start, end;
-	clock_gettime(CLOCK_MONOTONIC, &start);
+	clock_gettime(CLOCK_REALTIME, &start);
 	TensorAddition(inTensorsLen, inTensorLen, numTensors, inTensors, sum);
-	clock_gettime(CLOCK_MONOTONIC, &end);
+	clock_gettime(CLOCK_REALTIME, &end);
 
 	double diff = 1000 * (end.tv_sec - start.tv_sec) +( end.tv_nsec - start.tv_nsec)/1000000;
 	cout << "Elapsed time dfe: " << diff << "ms\n";
