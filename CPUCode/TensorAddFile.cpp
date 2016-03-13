@@ -1,19 +1,14 @@
 #include "LTensor/LTensor.h"
-
+#include "TensorAdd.h"
 #include <iostream>
 #include <fstream>
 #include <ctime>
 #include <limits.h>
+#include "MaxSLiCInterface.h"
+#include "Maxfiles.h"
 
 using namespace std;
 static fstream input, output;
-
-float generateRandomNumber(){
-	float fMin=0, fMax=10000;
-	float f = (float)rand() / RAND_MAX;
-	return fMin + f * (fMax - fMin);
-
-}
 
 static void addFirstRankTensors(long dim, long num) {
 
@@ -126,38 +121,22 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 }
 
 
-void tensorAddLTensor(char* inputName, char* outputName) {
-	long  rank, dim1, dim2, dim3;
-	int num;
-	//
-	//	input.open("test/test110e4x10e6_in1.txt", fstream::out);
-	//	input << 10000;
-	//	input << 1 << endl;
-	//	input << 1000000 << endl;
-	//	for(long j=0;j<10000;j++){
-	//		for(long i=0;i<1000000;i++){
-	//			input << generateRandomNumber() << " ";
-	//		}
-	//		input << "\n";
-	//	}
-	//
-	//	input.close();
-	//	return;
-
+void TensorAddFile::tensorAddLTensor() {
+	long   dim1, dim2, dim3;
 	input.open(inputName, fstream::in);
 	if(!input){
 		cout << "Input file does not exists!\n";
 		return;
 	}
 	output.open(outputName, fstream::out);
-	input >> num;
+	input >> numTensors;
 	input >> rank;
 
 	switch (rank) {
 	case 0: {
 		//tensor rank 0: scalar, trivial case
 		float sum=0, scalar;
-		for(long i=0;i<num;i++){
+		for(long i=0;i<numTensors;i++){
 			input >> scalar;
 			sum+=scalar;
 		}
@@ -166,15 +145,15 @@ void tensorAddLTensor(char* inputName, char* outputName) {
 	}
 	case 1:
 		input >> dim1;
-		addFirstRankTensors(dim1,num);
+		addFirstRankTensors(dim1,numTensors);
 		break;
 	case 2:
 		input >> dim1 >> dim2;
-		addSecondRankTensors(dim1, dim2,num);
+		addSecondRankTensors(dim1, dim2,numTensors);
 		break;
 	case 3:
 		input >> dim1 >> dim2 >> dim3;
-		addThirdRankTensors(dim1, dim2, dim3,num);
+		addThirdRankTensors(dim1, dim2, dim3,numTensors);
 		break;
 	default:
 		cout << "Ranks higher than 3 are not supported yet\n";
@@ -182,3 +161,94 @@ void tensorAddLTensor(char* inputName, char* outputName) {
 	input.close();
 	output.close();
 }
+
+const int loopSize =TensorAddition_tileSize;
+
+void TensorAddFile::tensorAddDFE() {
+	long dim1, dim2, dim3, inTensorsLen =0, inTensorLen = 0;
+	float* inTensors, *sum;
+	input.open(inputName, fstream::in);
+	if(!input){
+		cout << "Input file does not exists!\n";
+		return;
+	}
+	output.open(outputName, fstream::out);
+	input >> numTensors >>  rank;
+
+	switch (rank) {
+	case 0:
+		//tensor rank 0: scalar, trivial case
+		inTensorLen = 1;
+		inTensorsLen = numTensors;
+		break;
+	case 1:
+		input >> dim1;
+		inTensorLen = dim1;
+		inTensorsLen = numTensors*dim1;
+		break;
+	case 2:
+		input >> dim1 >> dim2;
+		inTensorLen = dim1*dim2;
+		inTensorsLen = numTensors*dim1*dim2;
+		break;
+	case 3:
+		input >> dim1 >> dim2 >> dim3;
+		inTensorLen = dim1*dim2*dim3;
+		inTensorsLen = numTensors*dim1*dim2*dim3;
+		break;
+	default:
+		cout << "Ranks higher than 3 are not supported yet\n";
+		return ;
+	}
+	//prepare data for DFE
+
+	int numZeroes = loopSize- inTensorLen % loopSize;
+	inTensors = new float[inTensorsLen+numZeroes*numTensors];
+	int skipSize = loopSize*(numTensors-1);
+	int numLoaded=0;// counts to loopSize
+	int numLoaded1=0;//counts to tensor length
+	int offset=0;
+	long cnt=0;
+	float data;
+	for(long i=0;i<inTensorsLen;i++){
+		input >> data;
+		inTensors[cnt]=data;
+		cnt++;
+		numLoaded++;
+		numLoaded1++;
+		if(numLoaded==loopSize){
+			cnt+=skipSize;
+			numLoaded=0;
+		}
+		if(numLoaded1==inTensorLen){
+			for(int j=0;j<numZeroes;j++){
+				inTensors[cnt]=0;
+				cnt++;
+			}
+			offset+=loopSize;
+			cnt=offset;
+			numLoaded1=numLoaded=0;
+
+		}
+	}
+
+	//call DFE
+
+
+	inTensorLen+=numZeroes;
+	inTensorsLen+=numZeroes*numTensors;
+	sum = new float[inTensorLen];
+	clock_t start=clock();
+	TensorAddition(inTensorsLen, inTensorLen, numTensors, inTensors, sum);
+	clock_t end = clock();
+	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
+	cout << "Elapsed time dfe: " << elapsed_time << "\n";
+	for(int i=0;i<inTensorLen;i++){
+		output << sum[i] << " ";
+	}
+	delete[] inTensors;
+	delete[] sum;
+	input.close();
+	output.close();
+}
+
