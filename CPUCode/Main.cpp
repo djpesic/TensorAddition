@@ -11,8 +11,8 @@ void runRandomMode(){
 	//------test------
 	long numTensors[]={10, 100, 1000, 10000, 100000};
 	long numTensorsSize=5;
-	long dimsSize=4;
-	long dims[] ={10, 100, 1000, 10000};
+	long dimsSize=5;
+	long dims[] ={10, 100, 1000, 10000, 10000};
 	tAdd.rank=1;
 	for(long i=0;i<numTensorsSize;i++){
 		for(long j=0;j<dimsSize;j++){
