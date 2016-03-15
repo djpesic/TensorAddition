@@ -1,6 +1,6 @@
 #ifndef TENSORADD_H_
 #define TENSORADD_H_
-
+#include "time.h"
 class TensorAdd {
 public:
 	long numTensors;
@@ -15,6 +15,19 @@ public:
 		float f = (float)rand() / RAND_MAX;
 		return fMin + f * (fMax - fMin);
 
+	}
+
+	static struct timespec diff(struct timespec start, struct timespec finish) {
+		struct timespec diff;
+		if ((finish.tv_nsec < start.tv_nsec)) {
+			diff.tv_sec  = finish.tv_sec  - start.tv_sec  - 1;
+			diff.tv_nsec = finish.tv_nsec - start.tv_nsec + 1000000000;
+		} else {
+			diff.tv_sec  = finish.tv_sec  - start.tv_sec;
+			diff.tv_nsec = finish.tv_nsec - start.tv_nsec;
+		}
+
+		return diff;
 	}
 };
 
