@@ -31,7 +31,7 @@ static void addFirstRankTensors(long dim, long num) {
 	}
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	printf("Elapsed time ltensor: %.5lf\n", elapsed_time);
 	for (long ind = 0; ind < dim; ind++) {
 		output << sum(ind) << " ";
 	}
@@ -65,7 +65,7 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 	}
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	printf("Elapsed time ltensor: %.5lf\n", elapsed_time);
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			output << sum(ind1, ind2) << " ";
@@ -106,7 +106,7 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	}
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	printf("Elapsed time ltensor: %.5lf\n", elapsed_time);
 	for (long ind1 = 0; ind1 < dim1; ind1++) {
 		for (long ind2 = 0; ind2 < dim2; ind2++) {
 			for (long ind3 = 0; ind3 < dim3; ind3++) {
@@ -242,7 +242,7 @@ void TensorAddFile::tensorAddDFE() {
 	TensorAddition(inTensorsLen, inTensorLen, numTensors, inTensors, sum);
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time dfe: " << elapsed_time << "\n";
+	printf("Elapsed time dfe: %.5lf\n", elapsed_time);
 	for(long i=0;i<inTensorLen;i++){
 		output << sum[i] << " ";
 	}

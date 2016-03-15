@@ -30,7 +30,7 @@ static void addFirstRankTensors(long dim, long num) {
 	}
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	printf("Elapsed time ltensor: %.5lf\n", elapsed_time);
 
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
@@ -62,7 +62,7 @@ static void addSecondRankTensors(long dim1, long dim2,long num) {
 	}
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	printf("Elapsed time ltensor: %.5lf\n", elapsed_time);
 
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
@@ -99,7 +99,7 @@ static void addThirdRankTensors(long dim1, long dim2, long dim3, long num) {
 	}
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time ltensor: " << elapsed_time << "\n";
+	printf("Elapsed time ltensor: %.5lf\n", elapsed_time);
 
 	for(long ind = 0; ind<num;ind++){
 		delete tensors[ind];
@@ -203,7 +203,8 @@ void TensorAddRandom::tensorAddDFE() {
 	TensorAddition(inTensorsLen, inTensorLen, numTensors, inTensors, sum);
 	clock_t end = clock();
 	double elapsed_time = (end - start)/(double)CLOCKS_PER_SEC;
-	cout << "Elapsed time dfe: " << elapsed_time << "\n";
+	printf("Elapsed time dfe: %.5lf\n", elapsed_time);
+
 
 	delete[] inTensors;
 	delete[] sum;
